@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/estudo-de-caso-java-spring-boot-uml.iml" filepath="$PROJECT_DIR$/.idea/estudo-de-caso-java-spring-boot-uml.iml" />
+      <module fileurl="file://$PROJECT_DIR$/estudocasouml/estudocasouml.iml" filepath="$PROJECT_DIR$/estudocasouml/estudocasouml.iml" />
+    </modules>
+  </component>
+</project>
