@@ -32,7 +32,7 @@ public class ProdutoResource {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<Produto>> findById(@PathVariable Integer id){
-        Optional<Produto> obj = produtoService.findById(id);
-        return ResponseEntity.ok().body(obj);
+        Produto obj = produtoService.findById(id);
+        return ResponseEntity.ok().body(Optional.ofNullable(obj));
     }
 }

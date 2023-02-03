@@ -30,7 +30,7 @@ public class PedidoResource {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<Pedido>> findById(@PathVariable Integer id){
-        Optional<Pedido> obj = pedidoService.findById(id);
-        return ResponseEntity.ok().body(obj);
+        Pedido obj = pedidoService.findById(id);
+        return ResponseEntity.ok().body(Optional.ofNullable(obj));
     }
 }

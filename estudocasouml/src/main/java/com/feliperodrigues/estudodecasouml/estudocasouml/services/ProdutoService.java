@@ -4,6 +4,7 @@ import com.feliperodrigues.estudodecasouml.estudocasouml.entities.Categoria;
 import com.feliperodrigues.estudodecasouml.estudocasouml.entities.Produto;
 import com.feliperodrigues.estudodecasouml.estudocasouml.repositories.CategoriaRepository;
 import com.feliperodrigues.estudodecasouml.estudocasouml.repositories.ProdutoRepository;
+import com.feliperodrigues.estudodecasouml.estudocasouml.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,8 @@ public class ProdutoService {
         return produtoRepository.findAll();
     }
 
-    public Optional<Produto> findById( Integer id){
+    public Produto findById(Integer id) {
         Optional<Produto> obj = produtoRepository.findById(id);
-        return obj;
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
 }
