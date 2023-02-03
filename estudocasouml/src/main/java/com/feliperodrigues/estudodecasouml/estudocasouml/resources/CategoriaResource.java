@@ -28,7 +28,7 @@ public class CategoriaResource {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<Categoria>> findById(@PathVariable Integer id){
-        Optional<Categoria> obj = categoriaService.findById(id);
-        return ResponseEntity.ok().body(obj);
+        Categoria obj = categoriaService.findById(id);
+        return ResponseEntity.ok().body(Optional.ofNullable(obj));
     }
 }
