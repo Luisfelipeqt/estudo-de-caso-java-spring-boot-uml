@@ -1,5 +1,6 @@
 package com.feliperodrigues.estudodecasouml.estudocasouml.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -19,11 +20,12 @@ public class Produto implements Serializable {
     private String nome;
     private Double preco;
 
+    @JsonIgnore
     @ManyToMany
-    @JoinTable(name = "pedido_categoria_id",
-    joinColumns = @JoinColumn(name = "tb_categoria"),
-    inverseJoinColumns = @JoinColumn(name = "tb_produto"))
-    private List<Categoria> categoriaList = new ArrayList<>();
+    @JoinTable(name = "tb_produto_categoria",
+    joinColumns = @JoinColumn(name = "produto_id"),
+    inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    private List<Categoria> categorias = new ArrayList<>();
 
     public Produto(){
     }
@@ -57,6 +59,11 @@ public class Produto implements Serializable {
     public void setPreco(Double preco) {
         this.preco = preco;
     }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
 
     @Override
     public boolean equals(Object o) {
