@@ -1,11 +1,15 @@
 package com.feliperodrigues.estudodecasouml.estudocasouml.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_pedido")
@@ -14,28 +18,34 @@ public class Pedido implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
-    private Date instate;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    private Date instante;
+
+    @OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")
     private Pagamento pagamento;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name="cliente_id")
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "endereco_de_entrega_id")
+    @JoinColumn(name="endereco_de_entrega_id")
     private Endereco enderecoDeEntrega;
 
+    @JsonIgnore
+    @OneToMany
+    private Set<ItemPedido> itens = new HashSet<>();
 
-    public Pedido(){
+    public Pedido() {
     }
 
-    public Pedido(Integer id, Date instate, Cliente cliente, Endereco enderecoDeEntrega) {
+    public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
+        super();
         this.id = id;
-        this.instate = instate;
+        this.instante = instante;
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;
     }
@@ -48,12 +58,12 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
-    public Date getInstate() {
-        return instate;
+    public Date getInstante() {
+        return instante;
     }
 
-    public void setInstate(Date instate) {
-        this.instate = instate;
+    public void setInstante(Date instante) {
+        this.instante = instante;
     }
 
     public Pagamento getPagamento() {
@@ -80,23 +90,38 @@ public class Pedido implements Serializable {
         this.enderecoDeEntrega = enderecoDeEntrega;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Pedido pedido)) return false;
-        return Objects.equals(getId(), pedido.getId()) && Objects.equals(getInstate(), pedido.getInstate());
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getInstate());
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
     }
 
     @Override
-    public String toString() {
-        return "Pedido{" +
-                "id=" + id +
-                ", instate=" + instate +
-                '}';
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Pedido other = (Pedido) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
     }
+
+
 }
