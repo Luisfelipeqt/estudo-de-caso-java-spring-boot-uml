@@ -1,5 +1,6 @@
 package com.feliperodrigues.estudodecasouml.estudocasouml.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.feliperodrigues.estudodecasouml.estudocasouml.enums.TipoCliente;
 import jakarta.persistence.*;
 
@@ -19,6 +20,7 @@ public class Cliente {
     private String cpfouCnpj;
     private Integer  tipo;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 

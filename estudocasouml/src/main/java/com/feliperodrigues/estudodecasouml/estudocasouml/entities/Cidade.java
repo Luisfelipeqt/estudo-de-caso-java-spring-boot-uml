@@ -1,5 +1,6 @@
 package com.feliperodrigues.estudodecasouml.estudocasouml.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -14,7 +15,7 @@ public class Cidade {
     private Integer id;
     private String nome;
    
-    @JsonIgnore
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private Estado estado;
