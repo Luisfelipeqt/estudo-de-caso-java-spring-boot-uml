@@ -3,6 +3,8 @@ package com.feliperodrigues.estudodecasouml.estudocasouml.entities;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "tb_cidade")
 public class Cidade {
@@ -11,6 +13,8 @@ public class Cidade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+   
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private Estado estado;
