@@ -1,5 +1,6 @@
 package com.feliperodrigues.estudodecasouml.estudocasouml.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.feliperodrigues.estudodecasouml.estudocasouml.enums.TipoCliente;
 import jakarta.persistence.*;
@@ -31,6 +32,7 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "tb_telefone")
     private Set<String> telefones = new HashSet<>();
 
+    @JsonBackReference
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 

@@ -2,6 +2,7 @@ package com.feliperodrigues.estudodecasouml.estudocasouml.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -24,9 +25,11 @@ public class Pedido implements Serializable {
     @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private Date instante;
 
+    @JsonManagedReference
     @OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")
     private Pagamento pagamento;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name="cliente_id")
     private Cliente cliente;
@@ -35,8 +38,7 @@ public class Pedido implements Serializable {
     @JoinColumn(name="endereco_de_entrega_id")
     private Endereco enderecoDeEntrega;
 
-    @JsonIgnore
-    @OneToMany
+    @OneToMany(mappedBy = "id.pedido")
     private Set<ItemPedido> itens = new HashSet<>();
 
     public Pedido() {
