@@ -8,3 +8,6 @@ spring:
             client-secret: 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
 
 
+      resourceserver:
+        jwt:
+          issuer-uri: https://accounts.google.com
